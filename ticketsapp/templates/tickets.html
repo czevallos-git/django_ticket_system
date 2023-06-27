@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Tickets Page
+{% endblock %}
+
+{% block content %}
+    <h3 align="center">Tickets</h3>
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <!-- Your Columns HERE -->
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Your rows inside the table HERE: -->
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.title }}</td>
+                    <td>{{ ticket.description }}</td>
+                    <td>{{ ticket.created }}</td>
+                    <td>
+                        <a href="{% url 'update_ticket_page' ticket.id %}" class="btn btn-outline btn-info">Edit</a>
+                        <a href="{% url 'delete_ticket' ticket.id %}" class="btn btn-outline btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

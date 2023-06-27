@@ -1,0 +1,12 @@
+{% extends "layout.html" %} {% block title %} Delete Ticket {% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <!-- <h3 align="center">Create Ticket</h3> -->
+    <h4>Are you sure you want to delete "{{obj}}"?</h4>
+    <br />
+    <a href="{% url 'tickets_page' %}" class="btn btn-outline btn-info">Go Back</a>
+    <button type="submit" class="btn btn-outline btn-danger">Delete</button>
+</form>
+{% endblock %}
