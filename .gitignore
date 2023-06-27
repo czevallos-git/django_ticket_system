@@ -1,0 +1,14 @@
+# Python
+__pycache__
+
+# vscode files
+.vscode/
+
+# venv files
+.venv/
+
+# database
+instance/
+
+# migrations
+migrations/
