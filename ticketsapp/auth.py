@@ -1,24 +1,48 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from .forms import CustomUserCreationForm
+
 
 def register_page(request):
+    form = CustomUserCreationForm()
+    
     if request.method == "POST":
-        email = request.form.get("email")
-        first_name = request.form.get('firstName')
-        last_name = request.form.get('lastName')
-        password1 = request.form.get('pass1')
-        password2 = request.form.get('pass2')
-        print(email)
-        print(first_name)
-        print(last_name)
-        print(password1)
-        print(password2)
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('tickets_page')
+        else:
+            messages.error(request, 'An error occurred during registration')
 
-        # new_user = User(email=email, first_name=first_name, last_name=last_name, password_hash=password1)
-        # db.session.add(new_user)
-        # db.session.commit()
-        # return redirect(url_for('views.home_page'))
+    return render(request, 'register.html', context={'form': form})
 
-    return render(request, 'register.html')
 
 def login_page(request):
+    if request.method == 'POST':
+        # email = request.POST.get('login_email_lbl')
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+        except Exception as e:
+            print(e)
+            messages.error(request, 'User does not exist')
+
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('tickets_page')
+        else:
+            messages.error(request, 'Username or password does not exist')
+
     return render(request, 'login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('home_page')
