@@ -9,6 +9,7 @@ __pycache__
 
 # database
 instance/
+*sqlite3
 
 # migrations
 migrations/
