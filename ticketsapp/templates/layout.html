@@ -33,6 +33,7 @@
                     <a class="nav-link" href="{% url 'tickets_page' %}">Tickets</a>
                 </li>
             </ul>
+            {% if not request.user.is_authenticated %}
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login_page' %}">Login</a>
@@ -41,8 +42,24 @@
                     <a class="nav-link" href="{% url 'register_page' %}">Register</a>
                 </li>
             </ul>
+            {% else %}
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout_page' %}">Logout</a>
+              </li>
+          </ul>
+            {% endif %}
         </div>
       </nav>
+    <!-- Messages Here -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <!-- Content HERE -->
     <div class="body-content container">
       {% block content %} 
