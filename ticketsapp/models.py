@@ -2,15 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# class User(models.Model):
-#     id = db.Column(db.Integer(), primary_key=True)
-#     first_name = db.Column(db.String(length=30), nullable=False, unique=False)
-#     last_name = db.Column(db.String(length=30), nullable=False, unique=False)
-#     email = db.Column(db.String(length=50), nullable=False, unique=True)
-#     password_hash = db.Column(db.String(length=50), nullable=False)
-#     #tickets = db.relationship('Ticket', backref='owned_user', lazy=True)
-
-
 class Project(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=200)

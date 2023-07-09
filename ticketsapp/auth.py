@@ -24,13 +24,16 @@ def register_page(request):
 
 def login_page(request):
     if request.method == 'POST':
-        # email = request.POST.get('login_email_lbl')
+        print(request.POST)
         username = request.POST.get('username').lower()
         password = request.POST.get('password')
+        print(password)
 
         try:
+            print(username)
             user = User.objects.get(username=username)
         except Exception as e:
+            print('here')
             print(e)
             messages.error(request, 'User does not exist')
 
