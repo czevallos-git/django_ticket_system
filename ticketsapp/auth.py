@@ -24,18 +24,17 @@ def register_page(request):
 
 def login_page(request):
     if request.method == 'POST':
-        print(request.POST)
         username = request.POST.get('username').lower()
         password = request.POST.get('password')
-        print(password)
 
-        try:
-            print(username)
-            user = User.objects.get(username=username)
-        except Exception as e:
-            print('here')
-            print(e)
-            messages.error(request, 'User does not exist')
+        # Avoid individual error messages for usernames and passwords which might confirm the existence of the username.
+        # A safer approach to prevent user enumeration is to return a generic error message when a login attemp fails.
+        # Ensure all paths (login attempt failure or sucess) take the same time, so attackers are not alerted of the existence of the username.
+        # Use time consuming hashing functions even if the username is wrong.
+        # try:
+        #     user = User.objects.get(username=username)
+        # except Exception as e:
+        #     pass
 
         user = authenticate(request, username=username, password=password)
         if user:
