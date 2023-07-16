@@ -1,8 +1,9 @@
-name: GitHub Actions Demo
+name: Project CI
 run-name: ${{ github.actor }} is testing out GitHub Actions
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Job1:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
@@ -15,5 +16,6 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - run: python manage.py test
       - run: echo "This job's status is ${{ job.status }}."  
       
