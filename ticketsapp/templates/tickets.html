@@ -16,7 +16,9 @@
                 <th scope="col">Owner</th>
                 <th scope="col">Project</th>
                 <th scope="col">Date Created</th>
+                {% if request.user.is_staff %}
                 <th scope="col">Options</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -29,10 +31,12 @@
                     <td>{{ ticket.owner }}</td>
                     <td>{{ ticket.project }}</td>
                     <td>{{ ticket.created }}</td>
-                    <td>
-                        <a href="{% url 'update_ticket_page' ticket.id %}" class="btn btn-outline btn-info">Edit</a>
-                        <a href="{% url 'delete_ticket' ticket.id %}" class="btn btn-outline btn-danger">Delete</a>
-                    </td>
+                    {% if request.user.is_staff %}
+                        <td>
+                            <a href="{% url 'update_ticket_page' ticket.id %}" class="btn btn-outline btn-info">Edit</a>
+                            <a href="{% url 'delete_ticket' ticket.id %}" class="btn btn-outline btn-danger">Delete</a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

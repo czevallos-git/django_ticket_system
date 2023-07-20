@@ -1,23 +1,24 @@
 {% extends 'layout.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     Registration Page
 {% endblock %}
 
 {% block content %}
-    <div class="center">
+    <div class="center" style= "height: 500px; width: 700px; overflow-y: scroll;">
         <h1>Signup</h1>
         <form method="POST">
             {% csrf_token %}
-            <!-- {{ form.as_p }} -->
+            {{ form|crispy }}
 
-            {% for field in form %}
+            <!-- {% for field in form %}
             <div  class="form-group">
                 <label class="form-label">{{ field.label }}</label>
                 {{ field }}
                 {{ field.help_text }}
             </div>
-            {% endfor %}
+            {% endfor %} -->
 
             <!-- start -->
             <!-- <div  class="form-group">

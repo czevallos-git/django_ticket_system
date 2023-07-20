@@ -1,17 +1,20 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %} Create Ticket {% endblock %} 
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %} 
-    <!-- this token will be sent on every post submit to ensure there are no malicious attempts -->
-    <!-- This is protecting us from cross site forgery attacks -->
-    <h3 align="center">Create Ticket</h3>
-    {{ form.as_p }}
-    <br />
-    <button type="button" onclick="history.back()" class="btn btn-primary">Cancel</button>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+<div class="center">
+    <form method="POST">
+        {% csrf_token %}
+        <!-- this token will be sent on every post submit to ensure there are no malicious attempts -->
+        <!-- This is protecting us from cross site forgery attacks -->
+        <h3 align="center">{{ action }} Ticket</h3>
+        {{ form|crispy }}
+        <br />
+        <button type="button" onclick="history.back()" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-primary">{{ action }}</button>
+    </form>
+</div>
 {% endblock %}
     
