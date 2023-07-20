@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import Ticket
 from .forms import TicketForm
 
 
 def home_page(request):
-    return render(request, 'home.html', {'name': 'Cristhian'})
+    return render(request, 'home.html')
 
 
 @login_required(login_url='login_page')
@@ -27,10 +27,11 @@ def create_ticket_page(request):
             ticket.save()
             return redirect('tickets_page')
     
-    context = {'form': form}
+    context = {'form': form, 'action': 'Create'}
     return render(request, 'create_ticket.html', context)
 
 
+@permission_required(perm="ticketsapp.can_change_ticket" , raise_exception=True)
 def update_ticket_page(request, pk):
     ticket = Ticket.objects.get(id=pk)
     form = TicketForm(instance=ticket)
@@ -40,10 +41,11 @@ def update_ticket_page(request, pk):
             form.save()
             return redirect('tickets_page')
     
-    context = {'form': form}
+    context = {'form': form, 'action': 'Update'}
     return render(request, 'create_ticket.html', context)
 
 
+@permission_required(perm="ticketsapp.can_delete_ticket" , raise_exception=True)
 def delete_ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     if request.method == 'POST':
