@@ -1,5 +1,5 @@
 runtime: python37
-entrypoint: gunicorn -b :$PORT django_ticket_system.wsgi
+entrypoint: gunicorn django_ticket_system.wsgi
 
 handlers:
 - url: /static
