@@ -15,10 +15,12 @@ class Ticket(models.Model):
     description = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True) # If the project gets deleted, all tickets belonging to that project will be deleted too
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, null=True
+    )  # If the project gets deleted, all tickets belonging to that project will be deleted too
 
     class Meta:
-        ordering = ['-created']
+        ordering = ["-created"]
 
     def __str__(self):
         return self.title
