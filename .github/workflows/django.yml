@@ -8,7 +8,6 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +24,29 @@ jobs:
       run: |
         python manage.py test
 
+
+  linter:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v3
+  
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.7
+  
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install black flake8
+  
+    - name: Run Linters
+      uses: wearerequired/lint-action@v2
+      with:
+        black: true
+        flake8: true
   # deploy:
   #   runs-on: ubuntu-latest
   #   steps:
